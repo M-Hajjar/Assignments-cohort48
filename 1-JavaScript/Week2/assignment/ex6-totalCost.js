@@ -28,8 +28,14 @@ const cartForParty = {
   pizza: 9.99
 };
 
-function calculateTotalPrice(/* TODO parameter(s) go here */) {
-  // TODO replace this comment with your code
+function calculateTotalPrice(cartObject) {
+  let total = 0;
+  const objectKeysList = Object.keys(cartObject);
+  for (let i = 0; i < objectKeysList.length; i++) {
+    total += cartObject[objectKeysList[i]];
+  }
+
+  return `Total: €${total}`;
 }
 
 // ! Test functions (plain vanilla JavaScript)
