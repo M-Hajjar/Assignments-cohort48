@@ -30,7 +30,7 @@ const employeeRecords = [
 ];
 
 function filterPrivateData(records) {
-  return records.map(({ name, occupation, email }) => ({ name, occupation, email }));
+ // return records.map(({ name, occupation, email }) => ({ name, occupation, email }));
 }
 
 // ! Test functions (plain vanilla JavaScript)
