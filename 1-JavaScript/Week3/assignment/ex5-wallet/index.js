@@ -95,7 +95,7 @@ const quiz = {
       b: 'Step out of current function', 
       c: 'Step' 
     },
-    answer: undefined,
+    answer: "b",
   },
   q4: {
     question: 'What is displayed in the console?',
