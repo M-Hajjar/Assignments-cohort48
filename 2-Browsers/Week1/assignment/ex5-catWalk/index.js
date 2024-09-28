@@ -25,8 +25,11 @@ Full description at: https://github.com/HackYourFuture/Assignments/tree/main/2-B
 // 1: Create a variable to store a reference to the `<img>` element.
 const catImg = document.querySelector('img');
 
-//  2: Change the style of the `<img>` to have a `left` of `0px`.
+// 2: Change the style of the `<img>` to have a `left` of `0px`.
 catImg.style.left = '0px';
+
+// Variable to store the interval ID for pausing the walk
+let walkInterval;
 
 // 3 & 4: Complete the function called catWalk() to move the cat 10 pixels to the right
 // of where it started, by changing the `left` style property, and call that function every 50 milliseconds.
@@ -35,25 +38,34 @@ function catWalk() {
   const catWidth = catImg.width;
   let currentPosition = parseInt(catImg.style.left);
 
-  if (currentPosition < screenWidth) {
+  // Move the cat to the right if it's not at the right edge
+  if (currentPosition < screenWidth - catWidth) {
     currentPosition += 10;
     catImg.style.left = currentPosition + 'px';
   } else {
     catImg.style.left = '0px'; // Step 5: Restart the cat at the left hand side when it reaches the right-hand side.
   }
 
-  //  6: When the cat reaches the middle of the screen, replace the img with an image of a cat dancing
-  // and then replace the img with the original image and have it continue the walk.
-  if (currentPosition >= (screenWidth / 2 - catWidth / 2)) {
+  // 6: When the cat reaches the middle of the screen, replace the img with an image of a cat dancing
+  // and stop walking temporarily
+  if (currentPosition >= (screenWidth / 2 - catWidth / 2) && currentPosition <= (screenWidth / 2 + catWidth / 2)) {
+    clearInterval(walkInterval); // Stop the cat from walking
+
+    // Switch to dancing cat image
     catImg.src = 'https://media1.tenor.com/images/2de63e950fb254920054f9bd081e8157/tenor.gif';
+
+    // After 5 seconds, switch back to walking cat image and resume walking
     setTimeout(() => {
       catImg.src = 'http://www.anniemation.com/clip_art/images/cat-walk.gif';
+      walkInterval = setInterval(catWalk, 50); // Resume walking after dancing
     }, 5000);
   }
 }
 
-//  4: Call `catWalk` function every 50 milliseconds.
-setInterval(catWalk, 50);
+// 4: Call `catWalk` function every 50 milliseconds.
+walkInterval = setInterval(catWalk, 50);
 
-//  5: Execute `catWalk` when the browser has completed loading the page.
-window.addEventListener('load', catWalk);
+// 5: Execute `catWalk` when the browser has completed loading the page.
+window.addEventListener('load', () => {
+  walkInterval = setInterval(catWalk, 50);
+});

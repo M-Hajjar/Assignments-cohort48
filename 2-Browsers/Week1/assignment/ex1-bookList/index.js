@@ -28,9 +28,12 @@ function createBookList(books) {
     pElement.textContent = `${book.title} by ${book.author}`;
     liElement.appendChild(pElement);
 
-    imgElement.src = `https://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg`;
+    // Using book.coverURL directly from the book object for images
+    imgElement.src = book.coverURL;
+    imgElement.alt = `Cover of ${book.title} by ${book.author}`;
     liElement.appendChild(imgElement);
 
+    // Set the style based on whether the book has been read or not
     if (book.alreadyRead) {
       liElement.style.color = 'green';
     } else {
@@ -48,19 +51,19 @@ function main() {
     {
       title: 'The Design of Everyday Things',
       author: 'Don Norman',
-      isbn: '978-0465050659',
+      coverURL: './images/design-everyday-things.jpg', // Local image path
       alreadyRead: false,
     },
     {
       title: 'The Most Human Human',
       author: 'Brian Christian',
-      isbn: '978-1617933431',
+      coverURL: './images/most-human-human.jpg', // Local image path
       alreadyRead: true,
     },
     {
       title: 'The Pragmatic Programmer',
       author: 'Andrew Hunt',
-      isbn: '978-0201616224',
+      coverURL: './images/pragmatic-programmer.jpg', // Local image path
       alreadyRead: true,
     },
   ];
@@ -70,3 +73,4 @@ function main() {
 }
 
 window.addEventListener('load', main);
+
